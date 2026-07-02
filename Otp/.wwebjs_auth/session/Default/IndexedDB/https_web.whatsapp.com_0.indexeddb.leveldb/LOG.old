@@ -1,0 +1,5 @@
+2026/06/23-16:08:11.314 91a8 Creating DB E:\otp\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
+2026/06/23-16:08:11.335 91a8 Reusing MANIFEST E:\otp\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/06/23-16:08:42.179 56e4 Level-0 table #5: started
+2026/06/23-16:08:42.199 56e4 Level-0 table #5: 1060851 bytes OK
+2026/06/23-16:08:42.201 56e4 Delete type=0 #3
