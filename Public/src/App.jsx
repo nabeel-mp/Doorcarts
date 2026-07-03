@@ -1,8 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 // Import your components
 import Login from './Pages/Login';
+import Register from './Pages/Register';
+import Home from './Pages/Home';
+import ProductDetails from './Pages/ProductDetails';
+import Cart from './Pages/Cart';
+import Payment from './Pages/Payment';
+import OrderHistory from './Pages/OrderHistory';
+import OrderStatus from './Pages/OrderStatus';
+import Wallet from './Pages/Wallet';
 
 // 1. Define ProtectedRoute directly in this file
 const ProtectedRoute = ({ isAuthenticated, children }) => {
@@ -11,13 +19,6 @@ const ProtectedRoute = ({ isAuthenticated, children }) => {
   }
   return children;
 };
-
-// Dummy component for demonstration
-const Dashboard = () => (
-  <div className="min-h-screen flex items-center justify-center bg-[#F4F7FA]">
-    <h1 className="text-3xl font-bold text-[#004AAD] font-['Plus_Jakarta_Sans']">Doorcarts Dashboard</h1>
-  </div>
-);
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -44,27 +45,81 @@ export default function App() {
     <Router>
       <Routes>
         {/* Public Routes */}
-        <Route 
-          path="/login" 
+        <Route
+          path="/login"
           element={
-            isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />
-          } 
+            isAuthenticated ? <Navigate to="/home" replace /> : <Login />
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            isAuthenticated ? <Navigate to="/home" replace /> : <Register />
+          }
         />
 
         {/* Protected Routes */}
         <Route
-          path="/dashboard"
+          path="/home"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <Dashboard />
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/product"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ProductDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Payment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <OrderHistory />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/order-status"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <OrderStatus />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/wallet"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Wallet />
             </ProtectedRoute>
           }
         />
 
         {/* Catch-all redirect */}
-        <Route 
-          path="*" 
-          element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} 
+        <Route
+          path="*"
+          element={<Navigate to={isAuthenticated ? "/home" : "/login"} replace />}
         />
       </Routes>
     </Router>

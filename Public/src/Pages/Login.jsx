@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ChevronsRight, MailCheck } from 'lucide-react';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [step, setStep] = useState('splash'); // 'splash', 'login', 'otp'
   const [phoneNumber, setPhoneNumber] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -28,9 +30,9 @@ export default function Login() {
 
   // Reset slide position when coming back to the login step
   useEffect(() => {
-    if (step === 'login') {
-      setSlidePosition(0);
-    }
+    if (step !== 'login') return;
+    const frame = requestAnimationFrame(() => setSlidePosition(0));
+    return () => cancelAnimationFrame(frame);
   }, [step]);
 
   // Handle OTP Timer countdown
@@ -298,7 +300,11 @@ export default function Login() {
           {/* Verify & Proceed Button */}
           <button 
             className="w-full bg-[#004aad] text-white py-4 rounded-xl font-bold flex justify-center items-center gap-2 shadow-lg shadow-blue-200 active:scale-[0.98] transition-transform"
-            onClick={() => alert(`Verifying OTP: ${otp.join('')}`)}
+            onClick={() => {
+              // TODO: replace with real OTP verification against the backend
+              localStorage.setItem('authToken', 'demo-token');
+              navigate('/home');
+            }}
           >
             Verify & Proceed
             <ArrowRight size={20} strokeWidth={2.5} />
